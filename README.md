@@ -2,8 +2,8 @@
 
 ## Running the app
 
-We have already set up a boilerplate React app (create-react-app) with an express server backend.
-I encourage you to run multiple instances to see multiple users on the server making changes.
+Here is a set up a boilerplate React app (create-react-app) with an express server backend.
+Try to run multiple instances to see different clients making changes to the server.
 
 To run it:
 
