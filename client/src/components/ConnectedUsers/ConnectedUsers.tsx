@@ -5,15 +5,16 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
-import { UserContext } from "../hooks/UserContext";
+import { UserContext } from "../../hooks/UserContext";
+import { User } from "../../Types/global";
 
 export default function ConnectedUsers() {
-  const [drawerIsOpen, setDrawerIsOpen] = useState();
-  const [users, setUsers] = useState();
-  const { user, socket } = useContext(UserContext);
+  const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>();
+  const [users, setUsers] = useState<User[]>();
+  const { user: currentUser, socket } = useContext(UserContext);
 
-  const createMappableUsers = (users) => {
-    let usersArr = [];
+  const createMappableUsers = (users: Record<string, User>) => {
+    let usersArr: User[] = [];
     Object.values(users).forEach((user) => {
       usersArr.push(user);
     });
@@ -22,7 +23,7 @@ export default function ConnectedUsers() {
 
   const handleInitialUsers = () => {
     if (socket == null) return;
-    socket.emit("user-Connected", user);
+    socket.emit("user-Connected", currentUser);
 
     // get current connected users
     socket.emit("load-InitialUsers");
@@ -33,7 +34,14 @@ export default function ConnectedUsers() {
   useEffect(handleInitialUsers, [socket, users]);
 
   return (
-    <Box mr={4}>
+    <Box
+      mr={4}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignSelf: "flex-end",
+      }}
+    >
       <AvatarGroup
         sx={{ cursor: "pointer" }}
         onClick={() => setDrawerIsOpen(true)}
@@ -52,14 +60,14 @@ export default function ConnectedUsers() {
       >
         <Box sx={{ width: 150 }}>
           <Typography my={1} mx={1.5} variant="h6">
-            {user.name}
+            {currentUser.name}
           </Typography>
           <Stack spacing={2}>
             <Divider />
             {users &&
-              users.map((user, index) => (
+              users.map((_, index) => (
                 <Box
-                  key={`${user.name}-${index}`}
+                  key={`${currentUser.name}-${index}`}
                   sx={{
                     display: "flex",
                     flexDirection: "row",
@@ -68,10 +76,10 @@ export default function ConnectedUsers() {
                     marginTop: 3,
                   }}
                 >
-                  <Avatar sx={{ bgcolor: user.color, marginX: 1 }}>
-                    {user.name.toLowerCase().charAt(0)}
+                  <Avatar sx={{ bgcolor: currentUser.color, marginX: 1 }}>
+                    {currentUser.name.toLowerCase().charAt(0)}
                   </Avatar>
-                  <Box>{user.name}</Box>
+                  <Box>{currentUser.name}</Box>
                 </Box>
               ))}
           </Stack>

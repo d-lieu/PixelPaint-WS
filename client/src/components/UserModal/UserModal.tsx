@@ -4,8 +4,8 @@ import { Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import ColorPicker from "./ColorPicker";
-import { UserContext } from "../hooks/UserContext";
+import ColorPicker from "../ColorPicker/ColorPicker";
+import { UserContext } from "../../hooks/UserContext";
 import Button from "@mui/material/Button";
 
 export default function UserModal() {
