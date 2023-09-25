@@ -9,8 +9,8 @@ import {
 } from "../../websocketHelpers/socketIO";
 import {
   CurrentDrawStroke,
-  fillGridOfPixelsProps,
-  fillSinglePixelProps,
+  GridOfPixelsProps,
+  SinglePixelProps,
   CanvasType,
 } from "../../Types/global";
 
@@ -21,18 +21,13 @@ export default function Canvas() {
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const pixelLength = 25;
 
-  const fillSinglePixel = ({ x, y, color }: fillSinglePixelProps) => {
+  const fillSinglePixel = ({ x, y, color }: SinglePixelProps) => {
     if (!contextRef.current) return;
     contextRef.current.fillStyle = color;
     contextRef.current.fillRect(x, y, pixelLength, pixelLength);
   };
 
-  const fillGridOfPixels = ({
-    x,
-    y,
-    color,
-    gridSize,
-  }: fillGridOfPixelsProps) => {
+  const fillGridOfPixels = ({ x, y, color, gridSize }: GridOfPixelsProps) => {
     if (!contextRef.current) return;
 
     const halfGridSize = Math.floor(gridSize / 2);
