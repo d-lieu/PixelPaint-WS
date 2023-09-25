@@ -1,5 +1,4 @@
-import { TextField, Box } from "@mui/material";
-import Grid from "@mui/material/Grid/Grid";
+import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography/Typography";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import BrushSizeInput from "../BrushSizeInput/BrushSizeInput";
